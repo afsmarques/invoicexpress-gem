@@ -6,7 +6,20 @@ module Invoicexpress
     end
 
     def get(path, options={})
-      repsonse = request(:get, path, options).body
+      request(:get, path, options).body
+    end
+
+    def get_pdf(path, options={})
+      params = { :klass => Invoicexpress::Models::Output }
+
+      repsonse = request(:get, path, params.merge(options))
+
+      if repsonse.status == 202
+        sleep(2)
+        get_pdf(path, options)
+      elsif repsonse.status == 200
+        return repsonse.body
+      end
     end
 
     def patch(path, options={})
