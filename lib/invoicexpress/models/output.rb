@@ -1,7 +1,7 @@
 module Invoicexpress
   module Models
 
-    class Pdf < BaseModel
+    class Output < BaseModel
       include HappyMapper
 
       element :pdfUrl, String
