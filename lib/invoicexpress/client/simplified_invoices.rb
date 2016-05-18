@@ -132,7 +132,7 @@ module Invoicexpress
       # @raise Invoicexpress::UnprocessableEntity When there are errors on the submission
       # @raise Invoicexpress::NotFound When the simplified invoice doesn't exist
       def simplified_invoice_pdf_url(simplified_invoice_id, options={})
-        params = { :klass => Invoicexpress::Models::Output }
+        params = { :klass => Invoicexpress::Models::Pdf }
 
         get("api/pdf/#{simplified_invoice_id}.xml", params.merge(options))
       end
