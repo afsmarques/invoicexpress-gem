@@ -76,6 +76,20 @@ module Invoicexpress
         put("transports/#{transport_guide_id}/change-state.xml", params.merge(options))
       end
 
+      # Sends the transport guide through email
+      #
+      # @param transport_guide_id [String] The transport guide id to send
+      # @param message [Invoicexpress::Models::Message] The message to send
+      # @raise Invoicexpress::Unauthorized When the client is unauthorized
+      # @raise Invoicexpress::UnprocessableEntity When there are errors on the submission
+      # @raise Invoicexpress::NotFound When the transport guide doesn't exist
+      def transport_guide_mail(transport_guide_id, message, options={})
+        raise(ArgumentError, "message has the wrong type") unless message.is_a?(Invoicexpress::Models::Message)
+
+        params = { :body => message, :klass => Invoicexpress::Models::TransportGuide }
+        put("transports/#{transport_guide_id}/email-document.xml", params.merge(options))
+      end
+
       # Generates the transport guide pdf url
       #
       # @param transport_guide_id [String] The transport guide id to get pdf url
